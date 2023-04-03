@@ -17,10 +17,10 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Username</label>
+                            <label class="form-label">Email</label>
                             <div class="form-control-feedback form-control-feedback-start">
                                 <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                                    name="email" placeholder="pras@mre.com" wire:model.defer='email'>
+                                    name="email" placeholder="Enter your email" wire:model.defer='email'>
                                 @error('email')
                                 <div class="invalid-feedback">
                                     {{ $message }}

@@ -1,3 +1,6 @@
-<div>
-    {{-- Knowing others is intelligence; knowing yourself is true wisdom. --}}
+<div class="content-inner">
+    <!-- Content area -->
+    <div class="content">
+    </div>
+    <!-- /content area -->
 </div>

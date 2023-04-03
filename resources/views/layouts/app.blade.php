@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr">
 
 <head>
     <meta charset="utf-8">
@@ -20,6 +20,13 @@
     <script src="{{url('/')}}/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
     <!-- /core JS files -->
 
+    <link href="{{url('/')}}/assets/css/datatables.min.css" id="stylesheet" rel="stylesheet" type="text/css">
+    
+    <script src="{{url('/')}}/assets/js/jquery/jquery.min.js"></script>
+    <script src="{{url('/')}}/assets/js/vendor/tables/datatables/pdfmake.min.js"></script>
+    <script src="{{url('/')}}/assets/js/vendor/tables/datatables/vfs_fonts.js"></script>
+    <script src="{{url('/')}}/assets/js/vendor/tables/datatables/datatables.min.js"></script>
+    <script src="{{url('/')}}/assets/js/custom.js"></script>
     <script src="{{url('/')}}/assets/js/app.js"></script>
     <!-- /theme JS files -->
     @livewireStyles
@@ -101,6 +108,7 @@
 
         <!-- Main sidebar -->
         <div class="sidebar sidebar-dark sidebar-main sidebar-expand-lg">
+            <!-- sidebar-main-resized -->
 
             <!-- Sidebar content -->
             <div class="sidebar-content">
@@ -140,8 +148,8 @@
                         @if($level2['level']==2)
                         @if(count($level2['child'])>0)
                         <li class="nav-item nav-item-submenu">
-                            <a href="#" class="nav-link"><i class="{{$level2['icon']}}"></i>
-                                <span>{{$level2['name']}}</span></a>
+                            <a href="#" class="nav-link"><i
+                                    class="{{$level2['icon']}}"></i><span>{{$level2['name']}}</span></a>
                             <ul class="nav-group-sub collapse">
                                 @foreach($level2['child'] as $level3)
                                 @if($level3['level']==3)
@@ -151,14 +159,29 @@
                                     <ul class="nav-group-sub collapse">
                                         @foreach($level3['child'] as $level4)
                                         @if($level4['level']==4)
-                                        @if(count($level3['child'])>0)
+                                        @if(count($level4['child'])>0)
                                         <li class="nav-item nav-item-submenu">
                                             <a href="#" class="nav-link">{{$level4['name']}}</a>
                                             <ul class="nav-group-sub collapse">
                                                 @foreach($level4['child'] as $level5)
                                                 @if($level5['level']==5)
+                                                @if(count($level5['child'])>0)
+                                                <li class="nav-item nav-item-submenu">
+                                                    <a href="#" class="nav-link">{{$level5['name']}}</a>
+                                                    <ul class="nav-group-sub collapse">
+                                                        @foreach($level5['child'] as $level6)
+                                                        @if($level6['level']==6)
+                                                        <li class="nav-item"><a href="{{url('/')}}/{{$level6['route']}}"
+                                                                class="nav-link">{{$level6['name']}}</a></li>
+                                                        @endif
+                                                        @endforeach
+                                                    </ul>
+                                                </li>
+                                                @else
                                                 <li class="nav-item"><a href="{{url('/')}}/{{$level5['route']}}"
                                                         class="nav-link">{{$level5['name']}}</a></li>
+                                                @endif
+
                                                 @endif
                                                 @endforeach
                                             </ul>
@@ -186,7 +209,9 @@
                                 <i class="{{$level2['icon']}}"></i>
                                 <span>
                                     {{$level2['name']}}
-                                    <span class="d-block fw-normal opacity-50">No pending orders</span>
+                                    @if(strtolower($level2['name']) == 'dashboard')
+                                    <span class="d-block fw-normal opacity-50">Analytics System</span>
+                                    @endif
                                 </span>
                             </a>
                         </li>
@@ -195,47 +220,6 @@
                         @endforeach
                         @endif
                         @endforeach
-                        <!-- Main -->
-                        <li class="nav-item-header pt-0">
-                            <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Main</div>
-                            <i class="ph-dots-three sidebar-resize-show"></i>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="ph-house"></i>
-                                <span>
-                                    Dashboard
-                                    <span class="d-block fw-normal opacity-50">No pending orders</span>
-                                </span>
-                            </a>
-                        </li>
-                        <!-- Layout -->
-                        <li class="nav-item-header">
-                            <div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Layout</div>
-                            <i class="ph-dots-three sidebar-resize-show"></i>
-                        </li>
-                        <li class="nav-item nav-item-submenu">
-                            <a href="#" class="nav-link"><i class="ph-arrow-elbow-down-right"></i> <span>Menu
-                                    levels</span></a>
-                            <ul class="nav-group-sub collapse">
-                                <li class="nav-item"><a href="#" class="nav-link">Second level</a></li>
-                                <li class="nav-item nav-item-submenu">
-                                    <a href="#" class="nav-link">Second level with child</a>
-                                    <ul class="nav-group-sub collapse">
-                                        <li class="nav-item"><a href="#" class="nav-link">Third level</a></li>
-                                        <li class="nav-item nav-item-submenu">
-                                            <a href="#" class="nav-link">Third level with child</a>
-                                            <ul class="nav-group-sub collapse">
-                                                <li class="nav-item"><a href="#" class="nav-link">Fourth level</a></li>
-                                                <li class="nav-item"><a href="#" class="nav-link">Fourth level</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-item"><a href="#" class="nav-link">Third level</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item"><a href="#" class="nav-link">Second level</a></li>
-                            </ul>
-                        </li>
                         <!-- /layout -->
 
                     </ul>
@@ -281,59 +265,10 @@
             <!-- /page header -->
 
 
-            <!-- Inner content -->
-            <div class="content-inner">
-
-                <!-- Content area -->
-                <div class="content">
-                    @yield('content')
-                </div>
-                <!-- /content area -->
-
-
-                <!-- Footer -->
-                <div class="navbar navbar-sm navbar-footer border-top">
-                    <div class="container-fluid">
-                        <span>&copy; 2022 <a
-                                href="https://themeforest.net/item/limitless-responsive-web-application-kit/13080328">Limitless
-                                Web App
-                                Kit</a></span>
-
-                        <ul class="nav">
-                            <li class="nav-item">
-                                <a href="https://kopyov.ticksy.com/"
-                                    class="navbar-nav-link navbar-nav-link-icon rounded" target="_blank">
-                                    <div class="d-flex align-items-center mx-md-1">
-                                        <i class="ph-lifebuoy"></i>
-                                        <span class="d-none d-md-inline-block ms-2">Support</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item ms-md-1">
-                                <a href="https://demo.interface.club/limitless/demo/Documentation/index.html"
-                                    class="navbar-nav-link navbar-nav-link-icon rounded" target="_blank">
-                                    <div class="d-flex align-items-center mx-md-1">
-                                        <i class="ph-file-text"></i>
-                                        <span class="d-none d-md-inline-block ms-2">Docs</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item ms-md-1">
-                                <a href="https://themeforest.net/item/limitless-responsive-web-application-kit/13080328?ref=kopyov"
-                                    class="navbar-nav-link navbar-nav-link-icon text-primary bg-primary bg-opacity-10 fw-semibold rounded"
-                                    target="_blank">
-                                    <div class="d-flex align-items-center mx-md-1">
-                                        <i class="ph-shopping-cart"></i>
-                                        <span class="d-none d-md-inline-block ms-2">Purchase</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /footer -->
-
-            </div>
+            @yield('content')
+            {{-- <div class="content-inner">
+                <!-- Inner content -->
+            </div> --}}
             <!-- /inner content -->
 
         </div>
