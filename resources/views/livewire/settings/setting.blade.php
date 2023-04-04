@@ -78,18 +78,18 @@
                                     <table class="table datatable table-striped table-hover">
                                         <thead>
                                             <tr>
-                                                <th>NO</th>
-                                                @foreach($grid as $field)
+                                                <th width="2%">NO</th>
+                                                @foreach($grid_menu as $field)
                                                 <th width="{{$field['width']}}">{{$field['label']}}</th>
                                                 @endforeach
-                                                <th>ACTION</th>
+                                                <th width="3%">ACTION</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($query as $key => $row)
+                                            @foreach($query_menu as $key => $row)
                                             <tr>
                                                 <td class="table-no">{{$key+1}}</td>
-                                                @foreach($grid as $field)
+                                                @foreach($grid_menu as $field)
                                                 @if($field['type'] == 'images')
                                                 <td class="{{$field['class'] ?? ''}}">
                                                     <center>
@@ -99,15 +99,17 @@
                                                         </a>
                                                     </center>
                                                 </td>
+                                                @elseif($field['type'] == 'icon')
+                                                <td class="{{$field['class'] ?? ''}}"> <i class="{!! $row->{$field['field']} !!}"></i></td>
                                                 @else
                                                 <td class="{{$field['class'] ?? ''}}">{!! $row->{$field['field']} !!}</td>
                                                 @endif
                                                 @endforeach
                                                 <td class="text-center">
-                                                    <a wire:click="editForm({{$row->$primarykey}})" onclick="edit({{$row->$primarykey}},{{$primarykey}})" class="action-icon"> <i
-                                                            class="far fa-edit text-success font-15"></i></a>
-                                                    <a wire:click="deleteConfirm({{$row->$primarykey}})" class="action-icon"> <i
-                                                            class="far fa-trash-alt text-danger font-15"></i></a>
+                                                    <a wire:click="editForm({{$row->$primarykey_menu}})" onclick="edit({{$row->$primarykey_menu}},{{$primarykey_menu}})" class="action-icon"> <i
+                                                            class="ph-note-pencil text-success font-15"></i></a>
+                                                    <a wire:click="deleteConfirm({{$row->$primarykey_menu}})" class="action-icon"> <i
+                                                            class="ph-trash-simple text-danger font-15"></i></a>
                                                 </td>
                                             </tr>
                                             @endforeach

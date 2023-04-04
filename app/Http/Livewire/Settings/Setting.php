@@ -19,82 +19,76 @@ class Setting extends Core
         // $this->search = request()->query('search', $this->search);
         // $this->comboRole = Role::select('role.id as cId', 'role.name as cLabel')->get()->toArray();
         $this->model = new Menu;
-        $this->primarykey = 'id';
-        $this->mandatory = [
-            'username' => 'required',
+        $this->route = 'settings';
+        $this->primarykey_menu = 'id';
+        $this->mandatory_menu = [
+            'clientid' => 'required',
             'name' => 'required',
-            'role' => 'required',
-            'email' => 'required',
-            'password' => 'required|min:4',
+            'route' => 'required',
         ];
-        $this->grid = array(
+        $this->grid_menu = array(
             array(
-                'label' => 'NAME',
-                'field' => 'username',
-                'type' => 'text',
-                'width' => ''
+                'label' => 'ICON',
+                'field' => 'icon',
+                'type' => 'icon',
+                'width' => '2%'
             ),
             array(
-                'label' => 'NAME',
+                'label' => 'MENU',
                 'field' => 'name',
                 'type' => 'text',
                 'width' => ''
             ),
             array(
-                'label' => 'EMAIL',
-                'field' => 'email',
+                'label' => 'ROUTE',
+                'field' => 'route',
                 'type' => 'text',
-                'width' => ''
+                'width' => '10%'
             ),
             array(
-                'label' => 'ROLE',
-                'field' => 'rolename',
+                'label' => 'ORDER',
+                'field' => 'order',
                 'type' => 'text',
-                'width' => ''
+                'width' => '2%'
             ),
         );
-        $this->form = array(
+        $this->form_menu = array(
             array(
-                'label' => 'USERNAME',
-                'field' => 'username',
+                'label' => 'MENU',
+                'field' => 'menuNama',
                 'type' => 'text',
-                // 'col' => 6,
-                'placeholder' => 'Enter Username',
-                'required' => true
+                'placeholder' => 'Masukan Menu',
+                'keterangan' => '* Wajib Diisi'
             ),
             array(
-                'label' => 'NAME',
-                'field' => 'name',
+                'label' => 'ROUTE',
+                'field' => 'menuRoute',
                 'type' => 'text',
-                'placeholder' => 'Enter Name',
-                'required' => true
+                'placeholder' => 'Masukan Route',
+                'keterangan' => ''
             ),
             array(
-                'label' => 'EMAIL',
-                'field' => 'email',
-                'type' => 'email',
-                'placeholder' => 'Enter Email',
-                'required' => true
+                'label' => 'ICON',
+                'field' => 'menuIcon',
+                'type' => 'text',
+                'placeholder' => 'Masukan Icon',
+                'keterangan' => ''
             ),
             array(
-                'label' => 'ROLE',
-                'field' => 'rolename',
-                'type' => 'hidden',
+                'label' => 'ORDER',
+                'field' => 'menuOrder',
+                'type' => 'number',
+                'placeholder' => 'Masukan Order',
+                'keterangan' => '* Wajib Diisi'
             ),
-            // array(
-            //     'label' => 'ROLE',
-            //     'field' => 'role',
-            //     'type' => 'combo',
-            //     'data' => $this->comboRole,
-            //     'default' => 'Choose Role',
-            //     'required' => true
-            // ),
             array(
-                'label' => 'PASSWORD',
-                'field' => 'password',
-                'type' => 'password',
-                'placeholder' => 'Enter Password',
-                'required' => true
+                'label' => 'PARENT',
+                'field' => 'menuParent',
+                'type' => 'autocomplete',
+                'url' => 'comboparent',
+                'text' => 2,
+                'default' => 'Pilih Parent',
+                'keterangan' => ''
             ),
         );
 
@@ -102,17 +96,14 @@ class Setting extends Core
 
     public function render()
     {
-        $query = $this->model->get();
-
+        $query_menu = $this->model->whereNull('navigasi')->get();
+        
         $data = [
-            'route' => 'users',
-            'tittle' => 'Users',
-            'page_tittle' => 'Users',
-            'page_active' => 'List Users',
-            'primarykey' => $this->primarykey,
-            'query' => $query,
-            'grid' => $this->grid,
-            'form' => $this->form,
+            'route' => $this->route,
+            'primarykey_menu' => $this->primarykey_menu,
+            'query_menu' => $query_menu,
+            'grid_menu' => $this->grid_menu,
+            'form_menu' => $this->form_menu,
             // 'statusedit' => true,
         ];
         return view('livewire.settings.setting', $data)->extends('layouts.app',[
