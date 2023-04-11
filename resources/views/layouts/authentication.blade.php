@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +14,7 @@
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
+	<script src="{{url('/')}}/assets/js/jquery/jquery.min.js"></script>
 	<script src="{{url('/')}}/assets/demo/demo_configurator.js"></script>
 	<script src="{{url('/')}}/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
 	<!-- /core JS files -->
@@ -20,7 +22,7 @@
 	<!-- Theme JS files -->
 	<script src="{{url('/')}}/assets/js/app.js"></script>
 	<!-- /theme JS files -->
-    @livewireStyles
+	@livewireStyles
 
 </head>
 
@@ -39,7 +41,7 @@
 				<div class="content d-flex justify-content-center align-items-center">
 
 					<!-- Login form -->
-                    @yield('content')
+					@yield('content')
 					<!-- /login form -->
 
 				</div>
@@ -58,14 +60,16 @@
 	<!-- Demo config -->
 	{{-- <div class="offcanvas offcanvas-end" tabindex="-1" id="demo_config">
 		<div class="position-absolute top-50 end-100 visible">
-			<button type="button" class="btn btn-primary btn-icon translate-middle-y rounded-end-0" data-bs-toggle="offcanvas" data-bs-target="#demo_config">
+			<button type="button" class="btn btn-primary btn-icon translate-middle-y rounded-end-0" data-bs-toggle="offcanvas"
+				data-bs-target="#demo_config">
 				<i class="ph-gear"></i>
 			</button>
 		</div>
 
 		<div class="offcanvas-header border-bottom py-0">
 			<h5 class="offcanvas-title py-3">Demo configuration</h5>
-			<button type="button" class="btn btn-light btn-sm btn-icon border-transparent rounded-pill" data-bs-dismiss="offcanvas">
+			<button type="button" class="btn btn-light btn-sm btn-icon border-transparent rounded-pill"
+				data-bs-dismiss="offcanvas">
 				<i class="ph-x"></i>
 			</button>
 		</div>
@@ -124,7 +128,8 @@
 								<div class="text-muted">Toggle between LTR and RTL</div>
 							</div>
 						</div>
-						<input type="checkbox" name="layout-direction" value="rtl" class="form-check-input cursor-pointer m-0 ms-auto">
+						<input type="checkbox" name="layout-direction" value="rtl"
+							class="form-check-input cursor-pointer m-0 ms-auto">
 					</div>
 				</label>
 			</div>
@@ -133,46 +138,64 @@
 			<div class="row">
 				<div class="col-12">
 					<a href="index.html" class="d-block mb-3">
-						<img src="https://demo.interface.club/limitless/assets/images/layouts/layout_1.png" class="img-fluid img-thumbnail bg-primary bg-opacity-20 border-primary" alt="">
+						<img src="https://demo.interface.club/limitless/assets/images/layouts/layout_1.png"
+							class="img-fluid img-thumbnail bg-primary bg-opacity-20 border-primary" alt="">
 					</a>
 				</div>
 				<div class="col-12">
 					<a href="../../layout_2/full/index.html" class="d-block mb-3">
-						<img src="https://demo.interface.club/limitless/assets/images/layouts/layout_2.png" class="img-fluid img-thumbnail" alt="">
+						<img src="https://demo.interface.club/limitless/assets/images/layouts/layout_2.png"
+							class="img-fluid img-thumbnail" alt="">
 					</a>
 				</div>
 				<div class="col-12">
 					<a href="../../layout_3/full/index.html" class="d-block mb-3">
-						<img src="https://demo.interface.club/limitless/assets/images/layouts/layout_3.png" class="img-fluid img-thumbnail" alt="">
+						<img src="https://demo.interface.club/limitless/assets/images/layouts/layout_3.png"
+							class="img-fluid img-thumbnail" alt="">
 					</a>
 				</div>
 				<div class="col-12">
 					<a href="../../layout_4/full/index.html" class="d-block mb-3">
-						<img src="https://demo.interface.club/limitless/assets/images/layouts/layout_4.png" class="img-fluid img-thumbnail" alt="">
+						<img src="https://demo.interface.club/limitless/assets/images/layouts/layout_4.png"
+							class="img-fluid img-thumbnail" alt="">
 					</a>
 				</div>
 				<div class="col-12">
 					<a href="../../layout_5/full/index.html" class="d-block mb-3">
-						<img src="https://demo.interface.club/limitless/assets/images/layouts/layout_5.png" class="img-fluid img-thumbnail" alt="">
+						<img src="https://demo.interface.club/limitless/assets/images/layouts/layout_5.png"
+							class="img-fluid img-thumbnail" alt="">
 					</a>
 				</div>
 				<div class="col-12">
 					<a href="../../layout_6/full/index.html" class="d-block">
-						<img src="https://demo.interface.club/limitless/assets/images/layouts/layout_6.png" class="img-fluid img-thumbnail" alt="">
+						<img src="https://demo.interface.club/limitless/assets/images/layouts/layout_6.png"
+							class="img-fluid img-thumbnail" alt="">
 					</a>
 				</div>
 			</div>
 		</div>
 
 		<div class="border-top text-center py-2 px-3">
-			<a href="https://themeforest.net/item/limitless-responsive-web-application-kit/13080328?ref=kopyov" class="btn btn-yellow fw-semibold w-100 my-1" target="_blank">
+			<a href="https://themeforest.net/item/limitless-responsive-web-application-kit/13080328?ref=kopyov"
+				class="btn btn-yellow fw-semibold w-100 my-1" target="_blank">
 				<i class="ph-shopping-cart me-2"></i>
 				Purchase Limitless
 			</a>
 		</div>
 	</div> --}}
 	<!-- /demo config -->
-    @livewireScripts
+	@livewireScripts
 
 </body>
+<script type="text/javascript">
+	$(document).ready(function () {
+	// Hide messages
+	setTimeout(function() {
+    $('#messages').addClass('d-none');
+  }, 3000);
+		
+});
+
+</script>
+
 </html>

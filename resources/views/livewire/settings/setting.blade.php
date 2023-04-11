@@ -94,28 +94,33 @@
                                                 <td class="{{$field['class'] ?? ''}}">
                                                     <center>
                                                         <a href="javascript: void(0);">
-                                                            <img src="{!! $row->{$field['field']} !!}" title="contact-img"
-                                                                class="rounded-circle avatar-sm">
+                                                            <img src="{!! $row->{$field['field']} !!}"
+                                                                title="contact-img" class="rounded-circle avatar-sm">
                                                         </a>
                                                     </center>
                                                 </td>
                                                 @elseif($field['type'] == 'icon')
-                                                <td class="{{$field['class'] ?? ''}}"> <i class="{!! $row->{$field['field']} !!}"></i></td>
+                                                <td class="{{$field['class'] ?? ''}}"> <i
+                                                        class="{!! $row->{$field['field']} !!}"></i></td>
                                                 @else
-                                                <td class="{{$field['class'] ?? ''}}">{!! $row->{$field['field']} !!}</td>
+                                                <td class="{{$field['class'] ?? ''}}">{!! $row->{$field['field']} !!}
+                                                </td>
                                                 @endif
                                                 @endforeach
                                                 <td class="text-center">
-                                                    <a wire:click="editForm({{$row->$primarykey_menu}})" onclick="edit({{$row->$primarykey_menu}},{{$primarykey_menu}})" class="action-icon"> <i
+                                                    <a
+                                                        onclick="edit({{$row->$primarykey_menu}},`{{$primarykey_menu}}`,'data_menu','form_menu')"
+                                                        class="action-icon"> <i
                                                             class="ph-note-pencil text-success font-15"></i></a>
-                                                    <a wire:click="deleteConfirm({{$row->$primarykey_menu}})" class="action-icon"> <i
+                                                    <a wire:click="deleteConfirm({{$row->$primarykey_menu}})"
+                                                        class="action-icon"> <i
                                                             class="ph-trash-simple text-danger font-15"></i></a>
                                                 </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -127,24 +132,92 @@
                                 </div>
 
                                 <div class="card-body">
+                                    <input type="hidden" id="data_menu" name="data_menu" value="{{json_encode($query_menu)}}">
+                                    <input type="hidden" id="form_menu" name="form_menu" value="{{json_encode($form_menu)}}">
                                     <form action="#">
-                                        <div class="mb-3">
-                                            <label class="form-label">Your name:</label>
-                                            <input type="text" class="form-control" placeholder="Eugene Kopyov">
+                                        @csrf
+                                        @foreach($form_menu as $dataform)
+                                        @if($dataform['type']=='text')
+                                        <div class="col-sm-{{$dataform['col'] ?? 12}} mb-3">
+                                            <label class="form-label">{{$dataform['label'] ?? ''}} <small
+                                                class="form-text text-danger">@if($dataform['required'] ?? '') *
+                                                @endif</small></label>
+                                            <input type="text"
+                                                class="form-control @error($dataform['field']) is-invalid @enderror"
+                                                id="{{$dataform['field']}}" name="{{$dataform['field']}}"
+                                                placeholder="{{$dataform['placeholder'] ?? ''}}">
+                                            <small class="form-text text-muted">{{$dataform['keterangan'] ??
+                                                ''}}</small>
+                                            @error($dataform['field'])
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                         </div>
-
-                                        <div class="mb-3">
-                                            <label class="form-label">Your password:</label>
-                                            <input type="password" class="form-control"
-                                                placeholder="Your strong password">
+                                        @elseif($dataform['type']=='number')
+                                        <div class="col-sm-{{$dataform['col'] ?? 12}} mb-3">
+                                            <label class="form-label">{{$dataform['label'] ?? ''}} <small
+                                                class="form-text text-danger">@if($dataform['required'] ?? '') *
+                                                @endif</small></label>
+                                            <input type="number"
+                                                class="form-control @error($dataform['field']) is-invalid @enderror"
+                                                id="{{$dataform['field']}}" name="{{$dataform['field']}}"
+                                                placeholder="{{$dataform['placeholder'] ?? ''}}">
+                                            <small class="form-text text-muted">{{$dataform['keterangan'] ??
+                                                ''}}</small>
+                                            @error($dataform['field'])
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                         </div>
+                                        @elseif($dataform['type']=='autocomplete')
+                                        {{-- <div wire:ignore> --}}
+                                            <div class="col-sm-{{$dataform['col'] ?? 12}} mb-3">
+                                                <label class="form-label">{{$dataform['label'] ?? ''}} <small
+                                                    class="form-text text-danger">@if($dataform['required'] ?? '') *
+                                                    @endif</small></label>
+                                                <select class="form-control {{$dataform['field']}}"
+                                                    id="{{$dataform['field']}}" name="{{$dataform['field']}}">
+                                                    <option value="">Pilih Data</option>
+                                                </select>
+                                                <small class="form-text text-muted">{{$dataform['keterangan'] ??
+                                                    ''}}</small>
+                                                @error($dataform['field'])
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                                <script type="text/javascript">
+                                                    $("#{{$dataform['field']}}").select2({
+                                                    ajax: {
+                                                        url:  "{{url($dataform['url'])}}",
+                                                        dataType: 'json',
+                                                        delay: 250,
+                                                        data: function (params) {
+                                                            return {
+                                                                q: params.term, // search term
+                                                                page: params.page
+                                                            };
+                                                        },
+                                                        processResults: function (data, params) {
+                                                            params.page = params.page || 1;
 
-                                        <div class="mb-3">
-                                            <label class="form-label">Your message:</label>
-                                            <textarea rows="3" cols="3" class="form-control"
-                                                placeholder="Enter your message here"></textarea>
-                                        </div>
-
+                                                            return {
+                                                                results: data.items,
+                                                                pagination: {
+                                                                    more: (params.page * 30) < data.total_count
+                                                                }
+                                                            };
+                                                        },
+                                                        cache: true
+                                                    },
+                                                });
+                                                </script>
+                                            </div>
+                                        {{-- </div> --}}
+                                        @endif
+                                        @endforeach
                                         <div class="d-flex justify-content-between align-items-center">
                                             <a href="#" class="btn btn-light btn-icon"><i class="ph-question"></i></a>
                                             <div class="d-inline-flex">

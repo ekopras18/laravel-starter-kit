@@ -6,7 +6,73 @@
  *
  * ---------------------------------------------------------------------------- */
 
+function edit(id, pm_key, id_data, id_form) {
+    var data = document.getElementById(id_data).value;
+    console.log(JSON.parse(data));
+    var dataobj = JSON.parse(data);
+    for (var i = 0; i < dataobj.length; i++) {
+        var a = "dataobj[i]."+pm_key;
+        if (eval(a) == id) {
+            var field = document.getElementById(id_form).value;
+            var fieldobj = JSON.parse(field);
+            //masukkan PK dulu
+            // document.getElementById('id').value = id;
+            //masukkan field yang lain
+            for (var j = 0; j < fieldobj.length; j++) {
+                var b = "dataobj[i]." + fieldobj[j].field;
+                // console.log(fieldobj[j].type);
+                if (fieldobj[j].type != "password") {
+                    if (fieldobj[j].type == "combo") {
+                        // console.log(fieldobj[j].field, eval(b));
+                        document
+                            .getElementById(fieldobj[j].field)
+                            .removeAttribute("wire:model");
+                        console.log(eval(b));
+                        $("#" + fieldobj[j].field)
+                            .val(eval(b))
+                            .find(":selected")
+                            .trigger("change");
+                    }
+                    // else if (fieldobj[j].type == 'autocomplete') {
+                    // setAutocompleteVal(fieldobj[j].url, eval(b), fieldobj[j].text, fieldobj[j].field);
+                    // } else if (fieldobj[j].type == 'autocomplete_new') {
+                    // var id = 'dataobj[i].' + fieldobj[j].field + 'Id';
+                    // var nama = 'dataobj[i].' + fieldobj[j].field + 'Nama';
+
+                    // $('#' + fieldobj[j].field + 'Id').val(eval(id));
+                    // $('#' + fieldobj[j].field + 'Kode').val(eval(id));
+                    // $('#' + fieldobj[j].field + 'Nama').val(eval(nama));
+
+                    // setSelect2(eval(id), eval(nama), fieldobj[j].field);
+
+                    // } else if (fieldobj[j].type == 'angka') {
+                    // $('#' + fieldobj[j].field).autoNumeric('set', eval(b));
+                    // }
+                    else {
+                        document
+                            .getElementById(fieldobj[j].field)
+                            .removeAttribute("wire:model");
+
+                        document.getElementById(fieldobj[j].field).value =
+                            eval(b);
+                    }
+                } else {
+                    document
+                        .getElementById(fieldobj[j].field)
+                        .removeAttribute("wire:model");
+                }
+            }
+        }
+    }
+}
+
 $(document).ready(function () {
+
+    // Hide messages
+	setTimeout(function() {
+        $('#messages').addClass('d-none');
+    }, 3000);
+
     // Active Menu
     var path = location.pathname.split("/");
     if (path[1] != "") {
@@ -70,16 +136,15 @@ const plugins = (function () {
         // Setting datatable defaults
         $.extend($.fn.dataTable.defaults, {
             autoWidth: false,
-            bLengthChange: false, //thought this line could hide the LengthMenu
             bInfo: false,
             bSort: false,
-            responsive: true,          
-            dom: `<"datatable-header"<"row"<"col-sm-4 py-1"B><"col-sm-8"f>>>
-                      <"datatable-scroll-wrab"t>
-                      <"datatable-footer"p>`,
+            responsive: true,
+            lengthChange: false,
+            dom: '<"datatable-header justify-content-start"f<"ms-sm-auto"l><"ms-sm-3"B>><"datatable-scroll-wrap"t><"datatable-footer"ip>',
             language: {
                 search: '<div class="form-control-feedback form-control-feedback-end flex-fill">_INPUT_<div class="form-control-feedback-icon"><i class="ph-magnifying-glass opacity-50"></i></div></div>',
-                searchPlaceholder: "Type to Search...",
+                searchPlaceholder: "Type to filter...",
+                // lengthMenu: '<span class="me-3">Show:</span> _MENU_',
                 paginate: {
                     first: "First",
                     last: "Last",
@@ -90,6 +155,7 @@ const plugins = (function () {
         });
 
         // State saving
+
         $(".datatable").DataTable({
             buttons: {
                 buttons: [
@@ -114,16 +180,17 @@ const plugins = (function () {
                     {
                         extend: "colvis",
                         text: `<span class="btn-labeled-icon bg-dark rounded text-white">
-                                  <i class="ph-check-square-offset"></i>
-                              </span>`,
-                        className: "btn btn-flat-dark btn-labeled btn-labeled-start dropdown-toggle",
+                                          <i class="ph-check-square-offset"></i>
+                                      </span>`,
+                        className:
+                            "btn btn-flat-dark btn-labeled btn-labeled-start dropdown-toggle",
                     },
                 ],
             },
             stateSave: true,
             columnDefs: [
                 {
-                    targets: 0,
+                    // targets: -1,
                     visible: false,
                 },
             ],

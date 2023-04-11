@@ -13,12 +13,11 @@ class Setting extends Core
     public function mount()
     {
         if (trim(Session::get('email')) == '' or $this->routeAuth() == false) {
+            session()->flash('messages', 'Sorry, Wrong Authentication.');
             return redirect()->route('login');
         }
 
-        // $this->search = request()->query('search', $this->search);
-        // $this->comboRole = Role::select('role.id as cId', 'role.name as cLabel')->get()->toArray();
-        $this->model = new Menu;
+        $this->model_menu = new Menu;
         $this->route = 'settings';
         $this->primarykey_menu = 'id';
         $this->mandatory_menu = [
@@ -55,40 +54,43 @@ class Setting extends Core
         $this->form_menu = array(
             array(
                 'label' => 'MENU',
-                'field' => 'menuNama',
+                'field' => 'name',
                 'type' => 'text',
                 'placeholder' => 'Masukan Menu',
-                'keterangan' => '* Wajib Diisi'
+                'keterangan' => '',
+                'required' => true
             ),
             array(
                 'label' => 'ROUTE',
-                'field' => 'menuRoute',
+                'field' => 'route',
                 'type' => 'text',
                 'placeholder' => 'Masukan Route',
                 'keterangan' => ''
             ),
             array(
                 'label' => 'ICON',
-                'field' => 'menuIcon',
+                'field' => 'icon',
                 'type' => 'text',
                 'placeholder' => 'Masukan Icon',
                 'keterangan' => ''
             ),
             array(
                 'label' => 'ORDER',
-                'field' => 'menuOrder',
+                'field' => 'order',
                 'type' => 'number',
                 'placeholder' => 'Masukan Order',
-                'keterangan' => '* Wajib Diisi'
+                'keterangan' => '',
+                'required' => true
             ),
             array(
                 'label' => 'PARENT',
-                'field' => 'menuParent',
+                'field' => 'parent',
                 'type' => 'autocomplete',
                 'url' => 'comboparent',
                 'text' => 2,
                 'default' => 'Pilih Parent',
-                'keterangan' => ''
+                'keterangan' => '',
+                'required' => true
             ),
         );
 
@@ -96,7 +98,7 @@ class Setting extends Core
 
     public function render()
     {
-        $query_menu = $this->model->whereNull('navigasi')->get();
+        $query_menu = $this->model_menu->whereNull('navigasi')->latest()->get();
         
         $data = [
             'route' => $this->route,
@@ -104,7 +106,6 @@ class Setting extends Core
             'query_menu' => $query_menu,
             'grid_menu' => $this->grid_menu,
             'form_menu' => $this->form_menu,
-            // 'statusedit' => true,
         ];
         return view('livewire.settings.setting', $data)->extends('layouts.app',[
             'page_tittle' => 'Settings System',
@@ -113,4 +114,6 @@ class Setting extends Core
             'menu' => $this->menuAuth()
             ])->section('content');
     }
+
+    
 }

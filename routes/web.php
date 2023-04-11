@@ -26,6 +26,8 @@ Route::middleware('guest')->group(function () {
 // Route::get('/verify', [App\Http\Livewire\Auth\Authentication::class, 'verifForm'])->name('verif');
 Route::get('/logout', [App\Http\Livewire\Auth\Authentication::class, 'logout'])->name('logout');
 
+//Autocomplete
+
 
 //Setup
 Route::get('/settings', App\Http\Livewire\Settings\Setting::class);

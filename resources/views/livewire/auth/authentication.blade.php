@@ -13,7 +13,12 @@
                                 <img src="{{url('/')}}/assets/images/logo_icon.svg" class="h-48px" alt="">
                             </div>
                             <h5 class="mb-0">Login to your account</h5>
-                            <span class="d-block text-muted">Enter your credentials below</span>
+                            <span class="d-block text-muted mb-2">Enter your credentials below</span>
+
+                            @if (session('messages'))
+                            <span id="messages" class="d-block text-danger">{{ session('messages') }}</span>
+                            @endif
+
                         </div>
 
                         <div class="mb-3">
@@ -36,7 +41,8 @@
                             <label class="form-label">Password</label>
                             <div class="form-control-feedback form-control-feedback-start">
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                    id="password" name="password" placeholder="Enter your password" wire:model.defer='password'>
+                                    id="password" name="password" placeholder="Enter your password"
+                                    wire:model.defer='password'>
                                 @error('password')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -109,9 +115,8 @@
                         <div class="mb-3">
                             <label class="form-label">Full Name</label>
                             <div class="form-control-feedback form-control-feedback-start">
-                                <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                    id="name" name="name" placeholder="Enter your full name"
-                                    wire:model.defer='name'>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                                    name="name" placeholder="Enter your full name" wire:model.defer='name'>
                                 @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -145,9 +150,8 @@
                         <div class="mb-3">
                             <label class="form-label">Your email</label>
                             <div class="form-control-feedback form-control-feedback-start">
-                                <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                    id="email" name="email" placeholder="Enter your email"
-                                    wire:model.defer='email'>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                                    name="email" placeholder="Enter your email" wire:model.defer='email'>
                                 @error('email')
                                 <div class="invalid-feedback">
                                     {{ $message }}

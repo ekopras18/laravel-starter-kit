@@ -20,14 +20,19 @@
     <script src="{{url('/')}}/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
     <!-- /core JS files -->
 
-    <link href="{{url('/')}}/assets/css/datatables.min.css" id="stylesheet" rel="stylesheet" type="text/css">
+    {{-- <link href="{{url('/')}}/assets/css/datatables.min.css" id="stylesheet" rel="stylesheet" type="text/css"> --}}
     
     <script src="{{url('/')}}/assets/js/jquery/jquery.min.js"></script>
-    <script src="{{url('/')}}/assets/js/vendor/tables/datatables/pdfmake.min.js"></script>
-    <script src="{{url('/')}}/assets/js/vendor/tables/datatables/vfs_fonts.js"></script>
     <script src="{{url('/')}}/assets/js/vendor/tables/datatables/datatables.min.js"></script>
+	<script src="{{url('/')}}/assets/js/vendor/tables/datatables/extensions/buttons.min.js"></script>
+	<script src="{{url('/')}}/assets/js/vendor/tables/datatables/extensions/responsive.min.js"></script>
+    {{-- <script src="{{url('/')}}/assets/js/vendor/tables/datatables/pdfmake.min.js"></script>
+    <script src="{{url('/')}}/assets/js/vendor/tables/datatables/vfs_fonts.js"></script>
+    <script src="{{url('/')}}/assets/js/vendor/tables/datatables/datatables.min.js"></script> --}}
     <script src="{{url('/')}}/assets/js/custom.js"></script>
     <script src="{{url('/')}}/assets/js/app.js"></script>
+    <script src="{{url('/')}}/assets/js/vendor/forms/selects/select2.min.js"></script>
+    {{-- <script src="{{url('/')}}/assets/demo/pages/form_select2.js"></script> --}}
     <!-- /theme JS files -->
     @livewireStyles
 
@@ -562,7 +567,7 @@
     </div>
     <!-- /demo config -->
     @livewireScripts
-    {{-- @stack('js') --}}
+    {{-- @stack('scripts') --}}
 </body>
 
 </html>
