@@ -63,7 +63,7 @@ var DashboardSparklines = function() {
 
             // Vertical
             y.domain([0, qty])
-                
+
 
 
             // Construct chart layout
@@ -78,12 +78,12 @@ var DashboardSparklines = function() {
             // Area
             var area = d3.svg.area()
                 .interpolate(interpolation)
-                .x(function(d, i) { 
-                    return x(i); 
+                .x(function(d, i) {
+                    return x(i);
                 })
                 .y0(height)
-                .y1(function(d) { 
-                    return y(d); 
+                .y1(function(d) {
+                    return y(d);
                 });
 
 
@@ -216,9 +216,9 @@ var DashboardSparklines = function() {
             }
 
             // Resize function
-            // 
+            //
             // Since D3 doesn't support SVG resize by default,
-            // we need to manually specify parts of the graph that need to 
+            // we need to manually specify parts of the graph that need to
             // be updated on window resize
             function resizeSparklines() {
 

@@ -12,8 +12,8 @@
 
 (function () {
     ((localStorage.getItem('theme') == 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) || localStorage.getItem('theme') == 'dark') && document.documentElement.setAttribute('data-color-theme', 'dark');
-    // localStorage.getItem('direction') == 'rtl' && document.getElementById("stylesheet").setAttribute('href', 'assets/css/all.min.css');
-    // localStorage.getItem('direction') == 'rtl' && document.documentElement.setAttribute('dir', 'rtl');
+    localStorage.getItem('direction') == 'rtl' && document.getElementById("stylesheet").setAttribute('href', 'assets/css/rtl/all.min.css');
+    localStorage.getItem('direction') == 'rtl' && document.documentElement.setAttribute('dir', 'rtl');
 })();
 
 
@@ -111,30 +111,30 @@ const themeSwitcher = function() {
     };
 
     // Direction
-    // const layoutDirection = function() {
-    //     var dirSwitch = document.querySelector('[name="layout-direction"]');
+    const layoutDirection = function() {
+        var dirSwitch = document.querySelector('[name="layout-direction"]');
 
-    //     if (dirSwitch) {
-    //         var dirSwitchSelected = localStorage.getItem("direction") !== null && localStorage.getItem("direction") === "rtl";
-    //         dirSwitch.checked = dirSwitchSelected;
+        if (dirSwitch) {
+            var dirSwitchSelected = localStorage.getItem("direction") !== null && localStorage.getItem("direction") === "rtl";
+            dirSwitch.checked = dirSwitchSelected;
 
-    //         function resetDir() {
-    //             if (dirSwitch.checked) {
-    //                 document.getElementById("stylesheet").setAttribute('href', 'assets/css/rtl/all.min.css');
-    //                 document.documentElement.setAttribute("dir", "rtl");
-    //                 localStorage.setItem("direction", "rtl");
-    //             } else {
-    //                 document.getElementById("stylesheet").setAttribute('href', 'assets/css/ltr/all.min.css');
-    //                 document.documentElement.setAttribute("dir", "ltr");
-    //                 localStorage.removeItem("direction");
-    //             }
-    //         }
+            function resetDir() {
+                if (dirSwitch.checked) {
+                    document.getElementById("stylesheet").setAttribute('href', 'assets/css/rtl/all.min.css');
+                    document.documentElement.setAttribute("dir", "rtl");
+                    localStorage.setItem("direction", "rtl");
+                } else {
+                    document.getElementById("stylesheet").setAttribute('href', 'assets/css/ltr/all.min.css');
+                    document.documentElement.setAttribute("dir", "ltr");
+                    localStorage.removeItem("direction");
+                }
+            }
 
-    //         dirSwitch.addEventListener("change", function () {
-    //             resetDir();
-    //         });
-    //     }
-    // };
+            dirSwitch.addEventListener("change", function () {
+                resetDir();
+            });
+        }
+    };
 
 
     //
@@ -144,7 +144,7 @@ const themeSwitcher = function() {
     return {
         init: function() {
             layoutTheme();
-            // layoutDirection();
+            layoutDirection();
         }
     }
 }();

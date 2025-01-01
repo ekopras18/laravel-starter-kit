@@ -1,0 +1,40 @@
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile.app
+        container_name: "${CONTAINER_NAME}"
+        ports:
+            - "${CONTAINER_PORT}:8000"
+        volumes:
+            - ../:/app
+            - ../storage/logs:/app/storage/logs
+            - ../bootstrap/cache:/app/bootstrap/cache
+        working_dir: /app
+        networks:
+            - optima
+        deploy:
+            resources:
+                limits:
+                    cpus: "1"
+                    memory: "1G"
+    vite:
+        build:
+            context: .
+            dockerfile: Dockerfile.vite
+        container_name: "${CONTAINER_NAME}_vite"
+        ports:
+            - "5173:5173"
+        volumes:
+            - ../:/app
+        working_dir: /app
+        networks:
+            - optima
+        deploy:
+            resources:
+                limits:
+                    cpus: "0.5"
+                    memory: "512M"
+networks:
+    optima:
+        external: true

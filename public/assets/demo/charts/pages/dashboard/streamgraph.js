@@ -223,7 +223,7 @@ var D3Streamgraph = function() {
                     .enter()
                         .append("path")
                         .attr("class", "streamgraph-layer d3-slice-border")
-                        .attr("d", function(d) { return area(d.values); })                    
+                        .attr("d", function(d) { return area(d.values); })
                         .style('stroke-width', 1)
                         .style('box-shadow', '0 4px 8px rgba(0,0,0,0.5)')
                         .style("fill", function(d, i) { return z(i); });
@@ -368,7 +368,7 @@ var D3Streamgraph = function() {
                                 '<ul class="list-unstyled mb-1 p-0">' +
                                     '<li>' + '<div class="fs-base my-1"><i class="ph-arrow-circle-left"></i><span class="d-inline-block ms-2"></span>' + d.key + '</div>' + '</li>' +
                                     '<li>' + 'Visits: &nbsp;' + "<span class='fw-semibold float-end'>" + pro + '</span>' + '</li>' +
-                                    '<li>' + 'Time: &nbsp; ' + '<span class="fw-semibold float-end">' + formatDate(d.values[mousedate].date) + '</span>' + '</li>' + 
+                                    '<li>' + 'Time: &nbsp; ' + '<span class="fw-semibold float-end">' + formatDate(d.values[mousedate].date) + '</span>' + '</li>' +
                                 '</ul>'
                             )
                             .style("display", "block");
@@ -446,9 +446,9 @@ var D3Streamgraph = function() {
             }
 
             // Resize function
-            // 
+            //
             // Since D3 doesn't support SVG resize by default,
-            // we need to manually specify parts of the graph that need to 
+            // we need to manually specify parts of the graph that need to
             // be updated on window resize
             function resizeStream() {
 

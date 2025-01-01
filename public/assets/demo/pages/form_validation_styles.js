@@ -26,6 +26,8 @@ const FormValidationStyles = function() {
         // Loop over them and prevent submission
         forms.forEach(function(form) {
             form.addEventListener('submit', function(e) {
+                console.log({e});
+
                 if (!form.checkValidity()) {
                     e.preventDefault();
                     e.stopPropagation();

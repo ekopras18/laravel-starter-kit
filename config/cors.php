@@ -7,28 +7,36 @@ return [
     | Cross-Origin Resource Sharing (CORS) Configuration
     |--------------------------------------------------------------------------
     |
-    | Here you may configure your settings for cross-origin resource sharing
-    | or "CORS". This determines what cross-origin operations may execute
-    | in web browsers. You are free to adjust these settings as needed.
+    | Below is a recommended configuration for CORS in Laravel 11.
+    | You can adjust these settings based on your requirements for both
+    | local development and production environments.
     |
-    | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+    | For more information: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    // Define the paths that should allow CORS
+    'paths' => ['api/*', 'sanctum/csrf-cookie', '*'], // Add your API routes here
 
-    'allowed_methods' => ['*'],
+    // Allowed HTTP methods
+    'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
 
+    // Allowed origins
     'allowed_origins' => ['*'],
 
+    // Allowed origin patterns (for dynamic subdomains, if necessary)
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['*'],
+    // Allowed headers
+    'allowed_headers' => ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
 
-    'exposed_headers' => [],
+    // Headers that are exposed to the browser
+    'exposed_headers' => ['Authorization'],
 
-    'max_age' => 0,
+    // Cache duration for preflight requests
+    'max_age' => 0, // 24 hours
 
+    // Whether credentials are supported
     'supports_credentials' => false,
 
 ];
