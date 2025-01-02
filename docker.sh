@@ -28,13 +28,13 @@ CONTAINER_PORT="$CONTAINER_PORT"
 
 # Validate the action argument
 if [[ "$action" != "up" && "$action" != "down" ]]; then
-  echo "Error: Invalid action '$action'."
+  echo " x Error: Invalid action '$action'."
   usage
 fi
 
 # Validate the environment argument
 if [[ "$environment" != "develop" && "$environment" != "production" ]]; then
-  echo "Error: Invalid environment '$environment'."
+  echo " x Error: Invalid environment '$environment'."
   usage
 fi
 
@@ -51,7 +51,7 @@ if [ "$action" = "up" ]; then
 elif [ "$action" = "down" ]; then
     OPTIONS="-v"
 else
-    echo "Error: Invalid action '$action'."
+    echo " x Error: Invalid action '$action'."
     usage
     exit 1
 fi

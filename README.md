@@ -6,18 +6,18 @@
 
 ## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Template ini hadir untuk memberikan solusi desain modern yang elegan dengan penekanan pada kesederhanaan dan fungsionalitas. Dirancang dengan UI/UX yang intuitif dan responsif, template ini memastikan pengalaman pengguna yang mulus di berbagai perangkat, baik desktop maupun mobile.
+Fitur Utama:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Desain Minimalis: Dengan pendekatan desain yang bersih dan minimalis, template ini mengutamakan elemen-elemen yang penting, memberikan tampilan profesional dan modern.
+- Responsif dan Fleksibel: Template ini sepenuhnya responsif, menyesuaikan dengan baik di layar berbagai ukuran tanpa mengorbankan estetika atau kegunaan.
+- Pengalaman Pengguna (UX): Fokus pada navigasi yang mudah dan interaktif untuk memastikan pengguna dapat dengan cepat menemukan apa yang mereka cari.
+- Kode Terorganisir dengan Baik: Dilengkapi dengan struktur kode yang rapi, dokumentasi yang lengkap, dan siap digunakan untuk berbagai jenis proyek.
+- Kompatibel dengan Teknologi Terbaru: Template ini mendukung berbagai framework dan alat pengembangan terbaru untuk memastikan skalabilitas dan kemudahan integrasi.
+- Kustomisasi Mudah: Desain yang dapat disesuaikan sesuai dengan kebutuhan spesifik proyek Anda, memungkinkan fleksibilitas tinggi dalam penerapannya.
 
 ## Contributing
 
-## License
+## Created By
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Jeruk Peras
